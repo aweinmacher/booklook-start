@@ -1,8 +1,10 @@
-// AJAX
 var fetch = function () {
+  var isbn = $("#isbn").val();
+  var buildUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}` // 0439023521
+  // AJAX
   $.ajax({
     method: "GET",
-    url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:0439023521',
+    url: buildUrl,
     success: function (data) {
       console.log(data);
       $(".book").empty();
@@ -13,7 +15,7 @@ var fetch = function () {
         {
           title: data.items[0].volumeInfo.title,
           description: data.items[0].volumeInfo.description,
-          author: data.items[0].volumeInfo.authors[0],
+          author: data.items[0].volumeInfo.authors,
           imageLink: data.items[0].volumeInfo.imageLinks.smallThumbnail
         }
       );
@@ -22,7 +24,8 @@ var fetch = function () {
     error: function (jqXHR, textStatus, errorThrown) {
       console.log(textStatus);
     }
-  });
+  }); // END OF AJAX
+  $("#isbn").val("");
 };
 
 $(".search-book").on("click", fetch);
