@@ -1,7 +1,6 @@
 .title, .author, .description, .image, .pages, .minutes {
   display: none;
 }
-
 .show {
   display: block;
 }
